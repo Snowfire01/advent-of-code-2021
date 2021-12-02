@@ -4,7 +4,7 @@ const inputParser = new InputParser(1);
 
 const input = inputParser.parseLines<number>();
 
-export function solution() {
+export function solution(): number {
    let counter = 0;
 
    for (let i = 1; i < input.length; i++) {
