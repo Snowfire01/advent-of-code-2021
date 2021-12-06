@@ -29,7 +29,11 @@ import { getResult as getSolution25 } from "../day25/day25";
 const app = express();
 const port = process.env.PORT || 3000;
 
-const solutions = [
+const solutions: (
+   | { firstSolution: number; secondSolution: number }
+   | { firstSolution: string; secondSolution: string }
+   | Promise<{ firstSolution: string; secondSolution: string }>
+)[] = [
    getSolution1(),
    getSolution2(),
    getSolution3(),
@@ -57,7 +61,15 @@ const solutions = [
    getSolution25(),
 ];
 
-app.get("/:day/:puzzle", (req, res) => {
+var results: { firstSolution: number | string; secondSolution: number | string }[] | undefined = undefined;
+
+async function getSolutions() {
+   const results = await Promise.all(solutions);
+   return results;
+}
+
+app.get("/:day/:puzzle", async (req, res) => {
+   console.log("Get solutions for day " + req.params.day + " and puzzle " + req.params.puzzle);
    const day = +req.params.day;
    const puzzle = +req.params.puzzle;
 
@@ -76,12 +88,16 @@ app.get("/:day/:puzzle", (req, res) => {
       return;
    }
 
-   const retVal = solutions[day - 1][puzzle === 1 ? "firstSolution" : "secondSolution"];
+   if (!results) results = await getSolutions();
+
+   const retVal = results[day - 1][puzzle === 1 ? "firstSolution" : "secondSolution"];
 
    res.json(retVal);
 });
 
-app.get("/:day", (req, res) => {
+app.get("/:day", async (req, res) => {
+   console.log("Get solutions for day " + req.params.day);
+
    const day = +req.params.day;
 
    if (Date.now() < new Date(`12/${day}/2021 06:00`).getTime()) {
@@ -94,7 +110,9 @@ app.get("/:day", (req, res) => {
       return;
    }
 
-   const retVal = solutions[day - 1];
+   if (!results) results = await getSolutions();
+
+   const retVal = results[day - 1];
 
    res.json(retVal);
 });

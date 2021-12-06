@@ -1,25 +1,25 @@
-import { solution as firstSolution } from "./puzzle_day3_01"
-import { solution as secondSolution } from "./puzzle_day3_02"
+import { solution as firstSolution } from "./puzzle_day3_01";
+import { solution as secondSolution } from "./puzzle_day3_02";
 
-export function printResult() {
+export async function printResult() {
    console.log("--- Day 3: ---");
 
    try {
       const firstSolutionResult = firstSolution();
       console.log("First solution:", firstSolutionResult);
-   } catch(error) {
-      console.log("First solution:", (error as Error).message)
+   } catch (error) {
+      console.log("First solution:", (error as Error).message);
    }
 
    try {
-      const secondSolutionResult = secondSolution();
+      const secondSolutionResult = await secondSolution();
       console.log("Second solution:", secondSolutionResult);
-   } catch(error) {
-      console.log("Second solution:", (error as Error).message)
+   } catch (error) {
+      console.log("Second solution:", (error as Error).message);
    }
 }
 
-export function getResult(): { firstSolution: string; secondSolution: string } {
+export async function getResult(): Promise<{ firstSolution: string; secondSolution: string }> {
    const retVal = {
       firstSolution: "",
       secondSolution: "",
@@ -32,7 +32,7 @@ export function getResult(): { firstSolution: string; secondSolution: string } {
    }
 
    try {
-      retVal.secondSolution = secondSolution();
+      retVal.secondSolution = await secondSolution();
    } catch (error) {
       (retVal.secondSolution = "Second solution:"), (error as Error).message;
    }

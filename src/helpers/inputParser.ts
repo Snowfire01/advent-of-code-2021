@@ -15,7 +15,7 @@ export default class InputParser {
       return this.getLines().map((line) => JSON.parse(line));
    }
 
-   public convertLines<T>(converter: (line: string) => T): T[] {
-      return this.getLines().map((line) => converter(line));
+   public convertLines<T>(converter: (line: string, index: number) => T): T[] {
+      return this.getLines().map(converter);
    }
 }
