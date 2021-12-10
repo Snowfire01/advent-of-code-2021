@@ -24,9 +24,7 @@ export function solution(): string {
    let winningBoard: BingoBoard | undefined;
 
    sub.initBingoSubsystem((board) => {
-      console.log("Bingo");
       winningBoard = board;
-      board.print();
    });
 
    const bingoSubsystem = sub.bingoEngine as BingoEngine;
@@ -37,7 +35,6 @@ export function solution(): string {
 
    while (!winningBoard) {
       draw = drawnNumbers.shift();
-      console.log(`Drawing ${draw}`);
 
       if (draw === undefined) throw Error("No more numbers to draw");
 

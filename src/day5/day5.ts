@@ -1,5 +1,5 @@
-import { solution as firstSolution } from "./puzzle_day5_01"
-import { solution as secondSolution } from "./puzzle_day5_02"
+import { solution as firstSolution } from "./puzzle_day5_01";
+import { solution as secondSolution } from "./puzzle_day5_02";
 
 export function printResult() {
    console.log("--- Day 5: ---");
@@ -7,15 +7,15 @@ export function printResult() {
    try {
       const firstSolutionResult = firstSolution();
       console.log("First solution:", firstSolutionResult);
-   } catch(error) {
-      console.log("First solution:", (error as Error).message)
+   } catch (error) {
+      console.log("First solution:", (error as Error).message);
    }
 
    try {
       const secondSolutionResult = secondSolution();
       console.log("Second solution:", secondSolutionResult);
-   } catch(error) {
-      console.log("Second solution:", (error as Error).message)
+   } catch (error) {
+      console.log("Second solution:", (error as Error).message);
    }
 }
 
@@ -29,6 +29,7 @@ export function getResult(): { firstSolution: string; secondSolution: string } {
       retVal.firstSolution = firstSolution();
    } catch (error) {
       (retVal.firstSolution = "First solution:"), (error as Error).message;
+      throw error;
    }
 
    try {

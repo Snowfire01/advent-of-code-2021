@@ -28,7 +28,7 @@ export default class Submarine {
 }
 
 export class BingoEngine {
-   private boards: BingoBoard[] = [];
+   public boards: BingoBoard[] = [];
    private onBingo: (board: BingoBoard) => void;
 
    constructor(onBingo: (board: BingoBoard) => void) {
